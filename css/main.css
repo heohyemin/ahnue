@@ -647,7 +647,6 @@
       font-weight: 500;
     }
 
-    /* ===== 커스텀 마우스 커서 및 터치 기기 대응 ===== */
     .cursor-dot,
     .cursor-ring {
       position: fixed;
@@ -690,7 +689,6 @@
       }
     }
 
-    /* 모바일(터치스크린) 환경에서는 커스텀 마우스 커서를 완벽 차단하여 렌더링 리소스와 비주얼 방해 최소화 */
     @media (pointer: coarse) {
       .cursor-dot,
       .cursor-ring {
@@ -933,19 +931,10 @@
         text-overflow: ellipsis !important; 
         box-sizing: border-box;
       }
+      
 
       /* 모바일에서는 우측 서브 항목 레이아웃 자체를 가려 공간 극대화 */
-      .story-item-right {
+      .story-item-right, .story-item-new, .story-item-date, .story-item-arrow {
         display: none !important;
-      }
-      
-      /* 모바일에서는 날짜(date) 완벽 미노출 */
-      .story-item-date {
-        display: none !important;
-      }
-
-      /* 모바일 스토리 리스트 아이템 내부 화살표 숨김 */
-      .story-item-arrow {
-        display: none !important; 
       }
     }
