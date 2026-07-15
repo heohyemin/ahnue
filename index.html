@@ -5,23 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ahnue - 어뉴, 프리랜서 디자이너</title>
   <link rel="shortcut icon" href="./images/favicon.ico">
-  <link rel="icon" href=".//images/favicon.ico">
+  <link rel="icon" href="./images/favicon.ico">
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
+
   <!-- 커스텀 마우스 커서 -->
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- 상단 네비게이션 헤더 -->
   <header class="light-bg" id="mainHeader">
+    <!-- 모바일 전용 햄버거 버튼 -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="메뉴 토글">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
     <nav>
-      <ul class="nav-menu">
+      <!-- PC 중앙 네비 정렬 레이아웃 원형 복구 상태 유지 -->
+      <ul class="nav-menu" id="navMenu">
         <li><a href="#">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
-        <!-- <li><a href="#process">Process</a></li> -->
-        <li><a href="#notice">Story</a></li>
+        <li><a href="#notice" id="navStory">Story</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="#contact">Store <span class="cta-arrow">&rarr;</span></a></li>
       </ul>
@@ -37,7 +44,7 @@
         <div class="center-line" id="centerLine"></div>
 
         <div class="letter-a" id="letterA">
-          <img src="./images/intro_a.svg">
+          <img src="./images/intro_a.svg" alt="A" onerror="this.style.display='none'; this.parentNode.innerText='A'">
         </div>
 
         <div class="galaxy-frame" id="galaxyFrame">
@@ -47,21 +54,22 @@
         </div>
 
         <div class="letter-e" id="letterE">
-          <img src="./images/intro_e.svg">
+          <img src="./images/intro_e.svg" alt="E" onerror="this.style.display='none'; this.parentNode.innerText='E'">
         </div>
 
         <div class="logo-ahnue-full" id="logoFull">
-          <img src="./images/intro_logo.svg">
+          <img src="./images/intro_logo.svg" alt="ahnue" onerror="this.style.display='none'; this.parentNode.innerText='ahnue'">
         </div>
 
       </div>
     </div>
   </section>
 
+  <!-- About 소개 섹션 -->
   <section class="intro-section" id="about">
     <div class="intro-content">
       <div class="intro-logo">
-        <img src="./images/intro_logo.svg">
+        <img src="./images/intro_logo.svg" alt="ahnue" onerror="this.style.display='none';">
       </div>
 
       <div class="intro-text-group">
@@ -70,15 +78,15 @@
         <p>익숙한 것을 다른 관점에서 바라보고, 새로운 가능성을 발견하는 과정에서 AHNUE의 이야기는 시작되었습니다.</p>
       </div>
       <div class="intro-text-group">
-        <p>또한 AHNUE는 'A NEW'라는 의미를 담고 있습니다.</p>
+        <p>또한 AHNUE는 'A NEW'라는 의미을 담고 있습니다.</p>
         <p>새로운 시선, 새로운 경험, 새로운 가치를 디자인하며 브랜드와 사용자가 더 나은 방향으로 나아갈 수 있도록 돕습니다.</p>
         <p>AHNUE는 단순히 결과물을 만드는 것이 아니라,<br />새로운 관점을 제안하고 가능성을 함께 만들어가는 디자인 파트너입니다.</p>
       </div>
     </div>
   </section>
 
-  <section class="intro-section services-section" id="services">
-
+  <!-- Services 섹션 (모바일에서 카드 전원 복구 및 우수한 감성 구현) -->
+  <section class="services-section" id="services">
     <div class="services-header">
       <div class="services-header-left">
         <h2 class="services-title">새로운 시선으로<br>브랜드의 가치를 만듭니다.</h2>
@@ -88,10 +96,9 @@
     </div>
 
     <div class="service-strip">
-
       <!-- 디자인 -->
       <div class="service-panel">
-        <img class="panel-img" src="./images/design.png" alt="디자인 작업 사진" loading="lazy">
+        <img class="panel-img" src="./images/design.png" alt="디자인 작업 사진" loading="lazy" onerror="this.src='https://placehold.co/600x800/10121a/ffffff?text=Design'">
         <div class="panel-overlay"></div>
         <div class="panel-content">
           <div class="panel-head">
@@ -108,12 +115,11 @@
             </ul>
           </div>
         </div>
-        <!-- <span class="panel-arrow" aria-hidden="true">&rarr;</span> -->
       </div>
 
       <!-- 스토어 -->
       <div class="service-panel">
-        <img class="panel-img" src="./images/store.png" alt="디자인 작업 사진" loading="lazy">
+        <img class="panel-img" src="./images/store.png" alt="스토어 작업 사진" loading="lazy" onerror="this.src='https://placehold.co/600x800/10121a/ffffff?text=Store'">
         <div class="panel-overlay"></div>
         <div class="panel-content">
           <div class="panel-head">
@@ -127,12 +133,11 @@
             </ul>
           </div>
         </div>
-        <!-- <span class="panel-arrow" aria-hidden="true">&rarr;</span> -->
       </div>
 
-      <!-- 스토어 -->
+      <!-- 앱 서비스 -->
       <div class="service-panel">
-        <img class="panel-img" src="./images/app.png" alt="디자인 작업 사진" loading="lazy">
+        <img class="panel-img" src="./images/app.png" alt="앱 서비스 사진" loading="lazy" onerror="this.src='https://placehold.co/600x800/10121a/ffffff?text=App+Service'">
         <div class="panel-overlay"></div>
         <div class="panel-content">
           <div class="panel-head">
@@ -146,53 +151,50 @@
             </ul>
           </div>
         </div>
-        <!-- <span class="panel-arrow" aria-hidden="true">&rarr;</span> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Story 게시글 피드 영역 -->
+  <section class="story-section" id="notice">
+    <div class="story-container">
+      
+      <!-- 좌측: 고정 영역 (제목 & 카테고리 필터) -->
+      <div class="story-left">
+        <h2 class="story-category-title">STORY</h2>
+        <div class="story-tabs">
+          <button class="story-tab-btn active" data-category="all">All Stories</button>
+          <button class="story-tab-btn" data-category="notice">Notice</button>
+          <button class="story-tab-btn" data-category="showcase">Showcase</button>
+        </div>
       </div>
 
-
-      <!-- 앱 서비스
-      <a class="service-panel" href="https://heohyemin.github.io/petpick/" target="_blank" rel="noopener">
-        <img class="panel-img" src="https://picsum.photos/seed/ahnue-pawu/900/1200" alt="PawU 반려동물 서비스 사진" loading="lazy">
-        <div class="panel-overlay"></div>
-        <span class="panel-badge">런칭예정</span>
-        <div class="panel-content">
-          <div class="panel-head">
-            <div class="panel-title-kr">앱 서비스</div>
-            <div class="panel-title-en">App Service</div>
-          </div>
-          <div class="panel-hover-info">
-            <p class="panel-desc">반려동물을 위한 새로운 시선, PawU</p>
-          </div>
+      <!-- 우측: 게시글 목록 영역 -->
+      <div class="story-right">
+        <div class="story-list" id="storyList">
+          <!-- 게시물 목록이 JS를 통해 동적으로 주입됩니다. -->
         </div>
-        <span class="panel-arrow" aria-hidden="true">&rarr;</span>
-      </a>
-      -->
+      </div>
 
     </div>
   </section>
 
-  <!-- 얇은 텍스트 띠배너
+  <!-- Contact 섹션 -->
+  <section class="intro-section" id="contact" style="background-color: var(--color-dark); color: var(--color-text-light); min-height: 50vh; padding: 100px 20px;">
+    <div class="intro-content">
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; color: var(--color-neon);">Let's Create A NEW Perspective.</h2>
+      <p style="opacity: 0.8; font-size: 1.1rem; line-height: 1.8; margin-bottom: 40px;">프로젝트 의뢰 및 협업 문의는 언제든지 환영합니다.</p>
+      <a href="mailto:contact@ahnue.com" class="services-cta" style="background-color: var(--color-neon); color: var(--color-dark);">contact@ahnue.com</a>
+    </div>
+  </section>
+
+  <!-- 얇은 텍스트 띠배너 -->
   <div class="marquee-banner">
     <div class="marquee-track">
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
-      <span>ahnue</span>
+      <span>ahnue</span><span>ahnue</span><span>ahnue</span><span>ahnue</span><span>ahnue</span><span>ahnue</span><span>ahnue</span><span>ahnue</span>
+      <span>ahnue</span><span>ahnue</span><span>ahnue</span><span>ahnue</span><span>ahnue</span><span>ahnue</span><span>ahnue</span><span>ahnue</span>
     </div>
   </div>
- -->
   <script type="text/javascript" src="./js/main.js"></script>
 </body>
 </html>
