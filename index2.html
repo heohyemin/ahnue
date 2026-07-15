@@ -188,7 +188,7 @@
       z-index: 1;
     }
     
-    .galaxy-frame video {
+    .galaxy-frame video, .galaxy-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -987,7 +987,6 @@
     </button>
 
     <nav>
-      <!-- PC 중앙 네비 정렬 레이아웃 원형 복구 상태 유지 -->
       <ul class="nav-menu" id="navMenu">
         <li><a href="#">Home</a></li>
         <li><a href="#about">About</a></li>
@@ -999,12 +998,10 @@
     </nav>
   </header>
 
-  <!-- 1. 스크롤 인터랙션 영역 -->
   <section class="scroll-container" id="scrollContainer">
     <div class="sticky-viewport">
       <div class="interaction-wrapper">
         
-        <!-- 중앙 수평선 -->
         <div class="center-line" id="centerLine"></div>
 
         <div class="letter-a" id="letterA">
@@ -1012,9 +1009,10 @@
         </div>
 
         <div class="galaxy-frame" id="galaxyFrame">
-          <video autoplay muted loop playsinline id="galaxyVideo">
+          <!-- <video autoplay muted loop playsinline id="galaxyVideo">
             <source src="./images/26070-357512237.mp4" type="video/mp4">
-          </video>
+          </video> -->
+          <img src="./images/26070-357512237.webp" id="galaxyVideo" alt="움직이는 웹피 동영상" autoplay loop muted>
         </div>
 
         <div class="letter-e" id="letterE">
@@ -1062,7 +1060,7 @@
     <div class="service-strip">
       <!-- 디자인 -->
       <div class="service-panel">
-        <img class="panel-img" src="./images/design.png" alt="디자인 작업 사진" loading="lazy" onerror="this.src='https://placehold.co/600x800/10121a/ffffff?text=Design'">
+        <img class="panel-img" src="./images/design.png" alt="디자인 작업 사진" loading="lazy">
         <div class="panel-overlay"></div>
         <div class="panel-content">
           <div class="panel-head">
@@ -1083,7 +1081,7 @@
 
       <!-- 스토어 -->
       <div class="service-panel">
-        <img class="panel-img" src="./images/store.png" alt="스토어 작업 사진" loading="lazy" onerror="this.src='https://placehold.co/600x800/10121a/ffffff?text=Store'">
+        <img class="panel-img" src="./images/store.png" alt="스토어 작업 사진" loading="lazy">
         <div class="panel-overlay"></div>
         <div class="panel-content">
           <div class="panel-head">
@@ -1101,7 +1099,7 @@
 
       <!-- 앱 서비스 -->
       <div class="service-panel">
-        <img class="panel-img" src="./images/app.png" alt="앱 서비스 사진" loading="lazy" onerror="this.src='https://placehold.co/600x800/10121a/ffffff?text=App+Service'">
+        <img class="panel-img" src="./images/app.png" alt="앱 서비스 사진" loading="lazy">
         <div class="panel-overlay"></div>
         <div class="panel-content">
           <div class="panel-head">
@@ -1160,8 +1158,6 @@
   </div>
 
   <script>
-    // ===== 최근 게시물 리스트 데이터 (ahnues & Archive) =====
-    // isNew가 true인 글이 하나라도 있을 경우 상단 메뉴 옆에 'new' 배지가 자동으로 연동됩니다.
     const storyPosts = [
       {
         id: 1,
@@ -1210,11 +1206,6 @@
       }
     ];
 
-    // ===== 모바일 주소창 노출/숨김으로 인한 100vh 흔들림 보정 =====
-    // window.innerHeight를 매 스크롤마다 그대로 읽으면 모바일 브라우저 주소창이
-    // 나타나거나 사라질 때 값이 실시간으로 바뀌어 중간에 레이아웃이 튀거나
-    // 깨져 보이는 원인이 됩니다. resize/orientationchange 시점에만 갱신되는
-    // 안정적인 값을 --vh 변수와 캐시 변수에 저장해 스크롤 중에는 이 값만 사용합니다.
     function setStableViewportUnit() {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -1238,27 +1229,24 @@
     const storyList = document.getElementById('storyList');
     const tabButtons = document.querySelectorAll('.story-tab-btn');
 
-    // 1. 신규 글 여부 체크 및 헤더 'new' 표시 추가 로직
     function checkNewStories() {
       const hasNew = storyPosts.some(post => post.isNew);
       if (hasNew && navStory) {
         if (!navStory.querySelector('.new-badge')) {
           const badge = document.createElement('span');
           badge.className = 'new-badge';
-          badge.innerText = 'new'; // 'new' 문구 삽입
+          badge.innerText = 'new';
           navStory.appendChild(badge);
         }
       }
     }
 
-    // 2. 스토리 리스트 렌더링 함수 (최대 5개 제한 및 말줄임과 레이아웃 반영)
     function renderStories(categoryFilter = 'all') {
       storyList.classList.add('fade-out');
 
       setTimeout(() => {
         storyList.innerHTML = '';
 
-        // 필터링 적용 및 최대 5개 노출 제한 (.slice(0, 5))
         const filteredPosts = (categoryFilter === 'all' 
           ? storyPosts 
           : storyPosts.filter(post => post.category === categoryFilter)
@@ -1290,7 +1278,6 @@
       }, 300);
     }
 
-    // 3. 탭 버튼 클릭 이벤트 바인딩
     tabButtons.forEach(btn => {
       btn.addEventListener('click', (e) => {
         const selectedCategory = e.currentTarget.getAttribute('data-category');
@@ -1312,7 +1299,6 @@
         document.body.classList.toggle('menu-open', isActive);
       });
 
-      // 모바일 메뉴 링크 클릭 시 우아하게 닫히도록 리스너 연동
       const menuLinks = navMenu.querySelectorAll('a');
       menuLinks.forEach(link => {
         link.addEventListener('click', () => {
@@ -1323,7 +1309,6 @@
       });
     }
 
-    // ===== 커스텀 마우스 커서 설정 및 리바인딩 (pointer: fine 모드에서만 작동) =====
     const cursorDot = document.getElementById('cursorDot');
     const cursorRing = document.getElementById('cursorRing');
 
@@ -1380,7 +1365,6 @@
       animateCursorRing();
     }
 
-    // ===== 스크롤 수렴 물리 계산 애니메이션 및 헤더 테마 색상 자동 추종 로직 =====
     function handleScrollAnimations() {
       const containerRect = scrollContainer.getBoundingClientRect();
       const viewHeight = cachedViewHeight;
@@ -1391,7 +1375,6 @@
       
       scrollRatio = Math.max(0, Math.min(1, scrollRatio));
 
-      // 1. 은하 프레임 팽창 연산
       const startWidth = 50;  
       const startHeight = 35; 
       
@@ -1401,10 +1384,8 @@
       galaxyFrame.style.width = `${currentWidth}vw`;
       galaxyFrame.style.height = `${currentHeight}vh`;
 
-      // 2. 가로 수렴 계산
       const isMobile = viewWidth <= 768;
       
-      // 모바일 오프셋 계산 수치를 CSS calc 식에 맞춰 0.35 및 40px로 정확하게 동기화 보정
       const startOffset = isMobile 
         ? (viewWidth * 0.35 + 40) 
         : (viewWidth * 0.25 + 90);
@@ -1433,8 +1414,6 @@
 
       const aboutRect = aboutSection.getBoundingClientRect();
 
-      // 모바일 메뉴가 활성화되어 있는 동안에는 헤더가 무조건 투명 글래스 무드를 유지하도록 보정
-      // currentColor 스타일과 연동되어 햄버거 메뉴 및 텍스트 폰트 색상이 완벽히 동적 상호 반응
       if (aboutRect.top <= 60) {
         mainHeader.className = "light-bg";
       } else if (scrollRatio > 0.4) {
@@ -1444,7 +1423,6 @@
       }
     }
 
-    // 초기화 리스너 등록
     window.addEventListener('scroll', handleScrollAnimations);
     window.addEventListener('resize', setStableViewportUnit);
     window.addEventListener('orientationchange', setStableViewportUnit);
@@ -1455,7 +1433,6 @@
       renderStories('all');
     });
 
-    // DOMContentLoaded 이전에 스타일 계산이 먼저 필요하므로 즉시 한 번 실행
     setStableViewportUnit();
   </script>
 </body>
