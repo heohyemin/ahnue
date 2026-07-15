@@ -937,7 +937,7 @@
       /* 모바일 스토리 타이틀 길어질 경우 말줄임표(...) 적용 */
       .story-item-title {
         font-size: 1rem;
-        width: 100%;
+        width: 85%;
         display: block !important;
         white-space: nowrap !important;
         overflow: hidden !important;
