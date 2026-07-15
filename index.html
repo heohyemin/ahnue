@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ahnue - 어뉴, 프리랜서 디자이너</title>
+  <link rel="shortcut icon" href="./images/favicon.ico">
+  <link rel="icon" href=".//images/favicon.ico">
+
+  <style>
+    @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css");
+    
+    :root {
+      --color-neon: #d4ff00;
+      --color-dark: #0a0c14;
+      --color-text-dark: #333;
+      --color-text-light: #fff;
+      --font-ko: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    ::selection { 
+      background-color: #404247;
+      color:#d4ff00;
+    }
+
+    body {
+      font-family: var(--font-ko);
+      background-color: var(--color-text-light);
+      color: var(--color-text-dark);
+      overflow-x: hidden;
+      letter-spacing: -0.25px;
+      font-size:16px;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 50px;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+            transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease; 
+    }
+    header.light-bg {
+      color: var(--color-text-dark);
+      background-color: rgba(255, 255, 255, 0.75);
+    }
+
+    header.dark-bg {
+      color: var(--color-text-light);
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-menu a {
+      color: inherit;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      opacity: 0.7;
+    }
+
+    .scroll-container {
+      position: relative;
+      height: 300vh;
+      background-color: #fff;
+    }
+
+    .sticky-viewport {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .interaction-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .galaxy-frame {
+      position: absolute;
+      width: 50vw;
+      height: 35vh;
+      overflow: hidden;
+      background-color: var(--color-dark);
+      transition: width 0.05s linear, height 0.05s linear;
+      will-change: width, height;
+      z-index: 1;
+    }
+    .galaxy-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .center-line {
+      position: absolute;
+      width: 35vw;
+      height: 1.5px;
+      background: linear-gradient(to right, var(--color-neon), transparent, var(--color-neon));
+      z-index: 3;
+      pointer-events: none;
+      transform: scaleX(1);
+      opacity: 0.8;
+      transition: transform 0.1s linear, opacity 0.1s linear;
+    }
+
+    .letter-a, .letter-e {
+      position: absolute;
+      font-family: var(--font-en);
+      font-size: 140px;
+      font-weight: 800;
+      color: var(--color-neon);
+      line-height: 1;
+      z-index: 5;
+      pointer-events: none;
+      user-select: none;
+      top: 50%;
+      margin-top: -75px;
+      text-shadow: 0 0 20px rgba(212, 255, 0, 0.4);
+      transition: transform 0.1s linear, opacity 0.1s linear; 
+    }
+
+    .letter-a {
+      left: calc(50% - 25vw - 90px);
+      transform-origin: center right;
+    }
+
+    .letter-e {
+      right: calc(50% - 25vw - 90px);
+      transform-origin: center left;
+    }
+
+    .logo-ahnue-full {
+      position: absolute;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      text-align: center;
+    }
+
+    .logo-ahnue-full svg {
+      width: 320px;
+      height: auto;
+      fill: var(--color-neon);
+      filter: drop-shadow(0 0 25px rgba(212, 255, 0, 0.3));
+    }
+
+    .intro-section {
+      position: relative;
+      background-color: #ffffff;
+      /* padding: 160px 20px; */
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .intro-logo {
+      margin-bottom: 70px;
+    }
+    .intro-logo img {
+      width: 200px;
+      filter: brightness(0) saturate(100%) invert(5%) sepia(20%) saturate(1015%) hue-rotate(186deg) brightness(95%) contrast(95%);
+    }
+
+    .intro-text-group {
+      margin-bottom: 50px;
+    }
+    .intro-text-group:last-child {
+      margin-bottom: 0px;
+    }
+
+    .intro-text-group p {
+      font-size: 1.1rem;
+      line-height: 2;
+      color: #444;
+      word-break: keep-all;
+    }
+
+    /* 모바일 반응형 완벽 지원 */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+      .nav-menu {
+        gap: 20px;
+      }
+      .nav-menu a {
+        font-size: 13px;
+      }
+      .galaxy-frame {
+        width: 75vw;
+        height: 25vh;
+      }
+      .letter-a, .letter-e {
+        font-size: 80px;
+        margin-top: -40px;
+      }
+      .letter-a {
+        left: calc(50% - 37.5vw - 50px);
+      }
+      .letter-e {
+        right: calc(50% - 37.5vw - 50px);
+      }
+      .logo-ahnue-full svg {
+        width: 220px;
+      }
+      .center-line {
+        width: 90vw;
+      }
+      .intro-text-group p {
+        font-size: 14px;
+        padding: 0 15px;
+      }
+      .intro-text-group p.highlight {
+        font-size: 16px;
+      }
+      .services-header {
+        padding: 0 20px 36px;
+      }
+      .services-title {
+        font-size: 24px;
+      }
+      .services-cta {
+        padding: 13px 20px;
+        font-size: 13px;
+      }
+      .service-strip {
+        flex-direction: column;
+      }
+      .service-panel {
+        height: 320px;
+      }
+      .panel-content {
+        padding: 22px;
+      }
+      .panel-title-kr {
+        font-size: 19px;
+      }
+      .panel-arrow {
+        width: 38px;
+        height: 38px;
+        right: 18px;
+        bottom: 18px;
+      }
+    }
+
+    .services-section {
+      height:100vh;
+      padding: 0 3rem;
+      display: flex;
+      align-items: center;
+      text-align: left;
+      box-sizing: border-box;
+    }
+
+    .services-header {
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 0 3rem 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .services-header-left {
+      max-width: 620px;
+    }
+
+    .services-title {
+      font-size: 3.3rem;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #0D111D;
+      word-break: keep-all;
+    }
+
+    .services-sub {
+      margin-top: 18px;
+      color: #777;
+      word-break: keep-all;
+      font-size:1.2rem;
+    }
+
+    .services-cta {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 17px 28px;
+      border-radius: 40px;
+      background-color: var(--color-dark);
+      color: var(--color-text-light);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background-color 0.3s ease;
+    }
+    .services-cta:hover {
+      background-color: #1c2030;
+    }
+    .services-cta .cta-arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    .services-cta:hover .cta-arrow {
+      transform: translateX(4px);
+    }
+
+    .service-strip {
+      display: flex;
+      width: 100%;
+    }
+
+    .service-panel {
+      position: relative;
+      flex: 1 1 0;
+      min-width: 0;
+      height: 560px;
+      overflow: hidden;
+      display: block;
+      color: var(--color-text-light);
+      text-decoration: none;
+    }
+    .service-panel:not(:last-child) {
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .panel-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* filter: grayscale(10%) brightness(0.95) contrast(1.05); */
+      transition: transform 0.7s ease;
+    }
+    .service-panel:hover .panel-img {
+      transform: scale(1.08);
+    }
+
+    .panel-overlay {
+      position: absolute;
+      inset: 0;
+      /* background: linear-gradient(180deg, rgba(10, 12, 20, 0.1) 0%, rgba(10, 12, 20, 0.85) 100%); */
+      transition: background 0.4s ease;
+    }
+    .service-panel:hover .panel-overlay {
+      background: linear-gradient(180deg, rgba(10, 12, 20, 0.35) 0%, rgba(10, 12, 20, 0.94) 100%);
+    }
+
+    .panel-content {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .panel-title-kr {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .panel-title-en {
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0.75;
+    }
+
+    .panel-hover-info {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .service-panel:hover .panel-hover-info {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .panel-tags {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .panel-tags li {
+      /* font-size: 12px;
+      font-weight: 600; */
+      font-size:14px;
+      background-color: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      padding: 6px 12px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .panel-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 4px;
+    }
+
+    .panel-badge {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      z-index: 3;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-dark);
+      background-color: var(--color-neon);
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: -0.2px;
+    }
+
+    .panel-arrow {
+      position: absolute;
+      right: 28px;
+      bottom: 28px;
+      z-index: 3;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background-color: var(--color-neon);
+      color: var(--color-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(10px) scale(0.8);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .service-panel:hover .panel-arrow {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* ===== 커스텀 마우스 커서 ===== */
+    .cursor-dot,
+    .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .cursor-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #d4ff00;
+    }
+    .cursor-ring {
+      width: 34px;
+      height: 34px;
+      border: 1px solid #fff;
+      mix-blend-mode: difference;
+      transition: opacity 0.25s ease, width 0.3s ease, height 0.3s ease;
+    }
+    .cursor-dot.is-visible,
+    .cursor-ring.is-visible {
+      opacity: 1;
+    }
+    .cursor-ring.is-hovering {
+      width: 44px;
+      height: 44px;
+    }
+    @media (pointer: fine) {
+      body {
+        cursor: none;
+      }
+      a, button, .service-panel {
+        cursor: none;
+      }
+    }
+    @media (pointer: coarse) {
+      .cursor-dot,
+      .cursor-ring {
+        display: none;
+      }
+    }
+
+    /* ===== 띠배너 마퀴 ===== */
+    .marquee-banner {
+      width: 100%;
+      overflow: hidden;
+      background-color: var(--color-dark);
+      padding: 12px 0;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex;
+      width: max-content;
+      animation: marquee-scroll 16s linear infinite;
+    }
+    .marquee-track span {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 24px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-neon);
+      flex-shrink: 0;
+    }
+    .marquee-track span::after {
+      content: "\2022";
+      margin-left: 24px;
+      color: rgba(255, 255, 255, 0.35);
+    }
+    @keyframes marquee-scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    @media (max-width: 768px) {
+      .marquee-track span {
+        font-size: 12px;
+        padding: 0 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 커스텀 마우스 커서 -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- 상단 네비게이션 헤더 -->
+  <header class="light-bg" id="mainHeader">
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <!-- <li><a href="#process">Process</a></li> -->
+        <li><a href="#notice">Story</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact">Store <span class="cta-arrow">&rarr;</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 1. 스크롤 인터랙션 영역 -->
+  <section class="scroll-container" id="scrollContainer">
+    <div class="sticky-viewport">
+      <div class="interaction-wrapper">
+        
+        <!-- 중앙 수평선 -->
+        <div class="center-line" id="centerLine"></div>
+
+        <div class="letter-a" id="letterA">
+          <img src="./images/intro_a.svg">
+        </div>
+
+        <div class="galaxy-frame" id="galaxyFrame">
+          <video autoplay muted loop playsinline id="galaxyVideo">
+            <source src="./images/26070-357512237.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="letter-e" id="letterE">
+          <img src="./images/intro_e.svg">
+        </div>
+
+        <div class="logo-ahnue-full" id="logoFull">
+          <img src="./images/intro_logo.svg">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="intro-section" id="about">
+    <div class="intro-content">
+      <div class="intro-logo">
+        <img src="./images/intro_logo.svg">
+      </div>
+
+      <div class="intro-text-group">
+        <p>AHNUE는 Galaxy에서 영감을 받아 탄생한 이름입니다.</p>
+        <p>수많은 별들이 모여 하나의 은하를 이루듯, 서로 다른 생각과 경험은 연결될 때 새로운 가치를 만들어냅니다.</p>
+        <p>익숙한 것을 다른 관점에서 바라보고, 새로운 가능성을 발견하는 과정에서 AHNUE의 이야기는 시작되었습니다.</p>
+      </div>
+      <div class="intro-text-group">
+        <p>또한 AHNUE는 'A NEW'라는 의미를 담고 있습니다.</p>
+        <p>새로운 시선, 새로운 경험, 새로운 가치를 디자인하며 브랜드와 사용자가 더 나은 방향으로 나아갈 수 있도록 돕습니다.</p>
+        <p>AHNUE는 단순히 결과물을 만드는 것이 아니라,<br />새로운 관점을 제안하고 가능성을 함께 만들어가는 디자인 파트너입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="intro-section services-section" id="services">
+
+    <div class="services-header">
+      <div class="services-header-left">
+        <h2 class="services-title">새로운 시선으로<br>브랜드의 가치를 만듭니다.</h2>
+        <p class="services-sub">디자인, 굿즈, 그리고 새로운 서비스로 브랜드와 사용자를 연결합니다.</p>
+      </div>
+      <a href="#contact" class="services-cta">Contact <span class="cta-arrow">&rarr;</span></a>
+    </div>
+
+    <div class="service-strip">
+
+      <!-- 디자인 -->
+      <div class="service-panel">
+        <img class="panel-img" src="./images/design.png" alt="디자인 작업 사진" loading="lazy">
+        <div class="panel-overlay"></div>
+        <div class="panel-content">
+          <div class="panel-head">
+            <div class="panel-title-kr">디자인 서비스</div>
+            <div class="panel-title-en">Design AHNUE</div>
+          </div>
+          <div class="panel-hover-info">
+            <ul class="panel-tags">
+              <li>웹 디자인</li>
+              <li>앱 디자인</li>
+              <li>SNS 디자인</li>
+              <li>블로그 / 카페 대문 디자인</li>
+              <li>브랜딩</li>
+            </ul>
+          </div>
+        </div>
+        <!-- <span class="panel-arrow" aria-hidden="true">&rarr;</span> -->
+      </div>
+
+      <!-- 스토어 -->
+      <div class="service-panel">
+        <img class="panel-img" src="./images/store.png" alt="디자인 작업 사진" loading="lazy">
+        <div class="panel-overlay"></div>
+        <div class="panel-content">
+          <div class="panel-head">
+            <div class="panel-title-kr">굿즈 스토어</div>
+            <div class="panel-title-en">Store AHNUE</div>
+          </div>
+          <div class="panel-hover-info">
+            <ul class="panel-tags">
+              <li>스티커</li>
+              <li>구디백</li>
+            </ul>
+          </div>
+        </div>
+        <!-- <span class="panel-arrow" aria-hidden="true">&rarr;</span> -->
+      </div>
+
+      <!-- 스토어 -->
+      <div class="service-panel">
+        <img class="panel-img" src="./images/app.png" alt="디자인 작업 사진" loading="lazy">
+        <div class="panel-overlay"></div>
+        <div class="panel-content">
+          <div class="panel-head">
+            <div class="panel-title-kr">앱 서비스</div>
+            <div class="panel-title-en">App Service</div>
+            <span class="panel-badge">런칭예정</span>
+          </div>
+          <div class="panel-hover-info">
+            <ul class="panel-tags">
+              <li>반려동물을 위한 새로운 시선, PawU</li>
+              <!-- <li>구디백</li> -->
+            </ul>
+          </div>
+        </div>
+        <!-- <span class="panel-arrow" aria-hidden="true">&rarr;</span> -->
+      </div>
+
+
+      <!-- 앱 서비스
+      <a class="service-panel" href="https://heohyemin.github.io/petpick/" target="_blank" rel="noopener">
+        <img class="panel-img" src="https://picsum.photos/seed/ahnue-pawu/900/1200" alt="PawU 반려동물 서비스 사진" loading="lazy">
+        <div class="panel-overlay"></div>
+        <span class="panel-badge">런칭예정</span>
+        <div class="panel-content">
+          <div class="panel-head">
+            <div class="panel-title-kr">앱 서비스</div>
+            <div class="panel-title-en">App Service</div>
+          </div>
+          <div class="panel-hover-info">
+            <p class="panel-desc">반려동물을 위한 새로운 시선, PawU</p>
+          </div>
+        </div>
+        <span class="panel-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      -->
+
+    </div>
+  </section>
+
+  <!-- 얇은 텍스트 띠배너
+  <div class="marquee-banner">
+    <div class="marquee-track">
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+      <span>ahnue</span>
+    </div>
+  </div>
+ -->
+
+
+  <script>
+    const scrollContainer = document.getElementById('scrollContainer');
+    const galaxyFrame = document.getElementById('galaxyFrame');
+    const letterA = document.getElementById('letterA');
+    const letterE = document.getElementById('letterE');
+    const centerLine = document.getElementById('centerLine');
+    const logoFull = document.getElementById('logoFull');
+    const mainHeader = document.getElementById('mainHeader');
+    const aboutSection = document.getElementById('about');
+
+    function handleScrollAnimations() {
+      const containerRect = scrollContainer.getBoundingClientRect();
+      const viewHeight = window.innerHeight;
+      const viewWidth = window.innerWidth;
+      
+      // 스크롤 진행도를 0에서 1 사이의 비율로 정밀하게 맵핑
+      const totalScrollableDistance = containerRect.height - viewHeight;
+      let scrollRatio = -containerRect.top / totalScrollableDistance;
+      
+      scrollRatio = Math.max(0, Math.min(1, scrollRatio));
+
+      // 1. 은하 프레임 팽창 연산 (가로: 50vw -> 100vw, 세로: 35vh -> 100vh)
+      const startWidth = 50;  
+      const startHeight = 35; 
+      
+      const currentWidth = startWidth + (100 - startWidth) * scrollRatio;
+      const currentHeight = startHeight + (100 - startHeight) * scrollRatio;
+      
+      galaxyFrame.style.width = `${currentWidth}vw`;
+      galaxyFrame.style.height = `${currentHeight}vh`;
+
+      // 2. 가로 수렴 계산 (Horizontal Convergence Physics)
+      // 모바일과 PC 환경의 스크린 가로폭에 비례하여 도달 지점을 역계산합니다.
+      const isMobile = viewWidth <= 768;
+      
+      // CSS에서 작성한 초기 Letter의 위치 거리 보정값
+      // 데스크톱: 25vw + 90px / 모바일: 37.5vw + 50px
+      const startOffset = isMobile 
+        ? (viewWidth * 0.375 + 50) 
+        : (viewWidth * 0.25 + 90);
+
+      // 스크롤이 끝에 닿을수록 정중앙(0px)에 정착하도록 translate 계산
+      const currentTranslate = startOffset * scrollRatio;
+      const currentScale = Math.max(0, 1 - scrollRatio); // 수렴과 동시에 서서히 작아짐
+      const currentOpacity = 1 - (scrollRatio * 1.3);    // 스무스한 투명도 제거
+
+      letterA.style.transform = `translateX(${currentTranslate}px) scale(${currentScale})`;
+      letterA.style.opacity = Math.max(0, currentOpacity);
+
+      letterE.style.transform = `translateX(${-currentTranslate}px) scale(${currentScale})`;
+      letterE.style.opacity = Math.max(0, currentOpacity);
+
+      centerLine.style.opacity = Math.max(0, 0.8 - scrollRatio * 2);
+      centerLine.style.transform = `scaleX(${1 - scrollRatio})`;
+
+      if (scrollRatio >= 0.45) {
+        const logoProgress = (scrollRatio - 0.45) / 0.55;
+        logoFull.style.opacity = logoProgress;
+        logoFull.style.transform = `scale(${0.85 + (0.15 * logoProgress)})`;
+      } else {
+        logoFull.style.opacity = 0;
+        logoFull.style.transform = `scale(0.85)`;
+      }
+
+      const aboutRect = aboutSection.getBoundingClientRect();
+
+      if (aboutRect.top <= 60) {
+        mainHeader.className = "light-bg";
+      } else if (scrollRatio > 0.4) {
+        mainHeader.className = "dark-bg";
+      } else {
+        mainHeader.className = "light-bg";
+      }
+    }
+
+    // 브라우저 리스너 등록
+    window.addEventListener('scroll', handleScrollAnimations);
+    window.addEventListener('DOMContentLoaded', handleScrollAnimations);
+
+    // ===== 커스텀 마우스 커서 =====
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorRing = document.getElementById('cursorRing');
+
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+    const ringEase = 0.15; // 링이 점을 따라가는 지연 속도
+
+    if (window.matchMedia('(pointer: fine)').matches) {
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+
+        cursorDot.classList.add('is-visible');
+        cursorRing.classList.add('is-visible');
+      });
+
+      document.addEventListener('mouseleave', () => {
+        cursorDot.classList.remove('is-visible');
+        cursorRing.classList.remove('is-visible');
+      });
+
+      function animateCursorRing() {
+        ringX += (mouseX - ringX) * ringEase;
+        ringY += (mouseY - ringY) * ringEase;
+
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
+
+        requestAnimationFrame(animateCursorRing);
+      }
+      animateCursorRing();
+
+      // 링크, 버튼 등에 마우스 오버 시 링 사이즈 확대
+      const hoverTargets = document.querySelectorAll('a, button, .service-panel');
+      hoverTargets.forEach((el) => {
+        el.addEventListener('mouseenter', () => cursorRing.classList.add('is-hovering'));
+        el.addEventListener('mouseleave', () => cursorRing.classList.remove('is-hovering'));
+      });
+    }
+  </script>
+</body>
+</html>
