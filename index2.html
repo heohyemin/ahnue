@@ -474,12 +474,12 @@
 
     .story-section {
       background-color: #f7f9fa;
-      padding: 140px 50px;
-      min-height: 100vh;
-      min-height: calc(var(--vh, 1vh) * 100);
+      padding: 10rem 3rem;
+      height: 80vh;
+      /* min-height: calc(var(--vh, 1vh) * 100); */
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
     }
 
     .story-container {
@@ -585,12 +585,12 @@
       white-space: nowrap;
     }
 
-    .story-tag.tag-notice {
+    .story-tag.tag-ahnues {
       background-color: #e8eaf0;
       color: #4a5061;
     }
 
-    .story-tag.tag-showcase {
+    .story-tag.tag-archive {
       background-color: #e9fad1;
       color: #658c1f;
     }
@@ -789,7 +789,6 @@
       }
     }
 
-    /* ===== 모바일 미디어 쿼리 최적화 정의 ===== */
     @media (max-width: 768px) {
       /* 헤더를 정중앙 정렬하여 버튼 레이아웃 중심에 위치 */
       header {
@@ -923,7 +922,8 @@
 
       /* ===== 3. 모바일에서 스토리 날짜/화살표 비노출 및 말줄임 처리 고도화 ===== */
       .story-section {
-        padding: 80px 24px;
+        height: 100%;
+        padding: 5rem 24px;
       }
       .story-list {
         min-height: 380px;      
@@ -992,7 +992,7 @@
         <li><a href="#">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#notice" id="navStory">Story</a></li>
+        <li><a href="#ahnues" id="navStory">Story</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="#contact">Store <span class="cta-arrow">&rarr;</span></a></li>
       </ul>
@@ -1120,23 +1120,22 @@
   </section>
 
   <!-- Story 게시글 피드 영역 -->
-  <section class="story-section" id="notice">
+  <section class="story-section" id="ahnues">
     <div class="story-container">
       
       <!-- 좌측: 고정 영역 (제목 & 카테고리 필터) -->
       <div class="story-left">
         <h2 class="story-category-title">STORY</h2>
         <div class="story-tabs">
-          <button class="story-tab-btn active" data-category="all">All Stories</button>
-          <button class="story-tab-btn" data-category="notice">Notice</button>
-          <button class="story-tab-btn" data-category="showcase">Showcase</button>
+          <button class="story-tab-btn active" data-category="all">All</button>
+          <button class="story-tab-btn" data-category="ahnues">Ahnues</button>
+          <button class="story-tab-btn" data-category="archive">Archive</button>
         </div>
       </div>
 
       <!-- 우측: 게시글 목록 영역 -->
       <div class="story-right">
         <div class="story-list" id="storyList">
-          <!-- 게시물 목록이 JS를 통해 동적으로 주입됩니다. -->
         </div>
       </div>
 
@@ -1146,7 +1145,7 @@
   <!-- Contact 섹션 -->
   <section class="intro-section" id="contact" style="background-color: var(--color-dark); color: var(--color-text-light); min-height: 50vh; padding: 100px 20px;">
     <div class="intro-content">
-      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; color: var(--color-neon);">Let's Create A NEW Perspective.</h2>
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; color: var(--color-neon);">Let's Create <img src="./images/intro_logo.svg" style="width:120px"> Perspective.</h2>
       <p style="opacity: 0.8; font-size: 1.1rem; line-height: 1.8; margin-bottom: 40px;">프로젝트 의뢰 및 협업 문의는 언제든지 환영합니다.</p>
       <a href="mailto:contact@ahnue.com" class="services-cta" style="background-color: var(--color-neon); color: var(--color-dark);">contact@ahnue.com</a>
     </div>
@@ -1161,53 +1160,53 @@
   </div>
 
   <script>
-    // ===== 최근 게시물 리스트 데이터 (Notice & Showcase) =====
+    // ===== 최근 게시물 리스트 데이터 (ahnues & Archive) =====
     // isNew가 true인 글이 하나라도 있을 경우 상단 메뉴 옆에 'new' 배지가 자동으로 연동됩니다.
     const storyPosts = [
       {
         id: 1,
-        category: 'notice',
-        categoryLabel: 'Notice',
+        category: 'ahnues',
+        categoryLabel: 'ahnues',
         title: 'ahnue 공식 디자인 포트폴리오 사이트 리뉴얼 오픈 안내',
         date: '2026.07.15',
         isNew: true,
-        link: '#notice'
+        link: '#ahnues'
       },
       {
         id: 2,
-        category: 'showcase',
-        categoryLabel: 'Showcase',
+        category: 'archive',
+        categoryLabel: 'archive',
         title: '반려동물 케어 매칭 서비스 [PawU] UI/UX & 브랜딩 개발',
         date: '2026.07.10',
         isNew: true,
-        link: '#notice'
+        link: '#ahnues'
       },
       {
         id: 3,
-        category: 'notice',
-        categoryLabel: 'Notice',
+        category: 'ahnues',
+        categoryLabel: 'ahnues',
         title: '여름 시즌 맞이 한정판 감성 다꾸 스티커 팩 출시 알림',
         date: '2026.06.28',
         isNew: false,
-        link: '#notice'
+        link: '#ahnues'
       },
       {
         id: 4,
-        category: 'showcase',
-        categoryLabel: 'Showcase',
+        category: 'archive',
+        categoryLabel: 'archive',
         title: 'A NEW PERSPECTIVE - 미니멀리즘 비주얼 정체성 수립 프로젝트',
         date: '2026.06.12',
         isNew: false,
-        link: '#notice'
+        link: '#ahnues'
       },
       {
         id: 5,
-        category: 'notice',
-        categoryLabel: 'Notice',
+        category: 'ahnues',
+        categoryLabel: 'ahnues',
         title: '프리랜서 디자이너 어뉴(ahnue) 외부 출강 및 기업 세미나 일정',
         date: '2026.05.20',
         isNew: false,
-        link: '#notice'
+        link: '#ahnues'
       }
     ];
 
@@ -1269,7 +1268,7 @@
           storyList.innerHTML = `<div class="story-empty">등록된 최신 글이 없습니다.</div>`;
         } else {
           filteredPosts.forEach(post => {
-            const isNewMarkup = post.isNew ? `<span class="story-item-new">ⓝ</span>` : '';
+            const isNewMarkup = post.isNew ? `<span class="story-item-new">n</span>` : '';
             const itemHTML = `
               <a href="${post.link}" class="story-item" data-id="${post.id}">
                 <div class="story-item-left">
