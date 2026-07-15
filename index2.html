@@ -38,7 +38,7 @@
       font-family: var(--font-ko);
       background-color: var(--color-text-light);
       color: var(--color-text-dark);
-      overflow-x: hidden;
+      overflow-x: clip; /* hidden 대신 clip 사용: 가로 스크롤은 동일하게 막되, Safari에서 position:sticky가 깨지는 버그를 방지 */
       letter-spacing: -0.25px;
       font-size: 16px;
     }
