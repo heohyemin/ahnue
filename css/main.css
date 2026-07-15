@@ -1,4 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css");
+  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css");
     
     :root {
       --color-neon: #d4ff00;
@@ -14,6 +14,11 @@
       padding: 0;
     }
 
+    /* 모바일 주소창 노출/숨김에 따라 100vh가 흔들리는 문제 보정용 커스텀 변수 */
+    :root {
+      --vh: 1vh;
+    }
+
     ::selection { 
       background-color: #404247;
       color: #d4ff00;
@@ -23,7 +28,7 @@
       font-family: var(--font-ko);
       background-color: var(--color-text-light);
       color: var(--color-text-dark);
-      overflow-x: hidden;
+      overflow-x: clip; /* hidden 대신 clip 사용: 가로 스크롤은 동일하게 막되, Safari에서 position:sticky가 깨지는 버그를 방지 */
       letter-spacing: -0.25px;
       font-size: 16px;
     }
@@ -137,6 +142,7 @@
     .scroll-container {
       position: relative;
       height: 300vh;
+      height: calc(var(--vh, 1vh) * 300);
       background-color: #fff;
     }
 
@@ -145,6 +151,7 @@
       top: 0;
       width: 100%;
       height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
       overflow: hidden;
       display: flex;
       justify-content: center;
@@ -171,7 +178,7 @@
       z-index: 1;
     }
     
-    .galaxy-frame video {
+    .galaxy-frame video, .galaxy-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -248,6 +255,7 @@
       align-items: center;
       text-align: center;
       min-height: 100vh;
+      min-height: calc(var(--vh, 1vh) * 100);
       overflow: hidden;
     }
 
@@ -283,6 +291,7 @@
     .services-section {
       height: auto;
       min-height: 100vh;
+      min-height: calc(var(--vh, 1vh) * 100);
       padding: 120px 3rem;
       display: flex;
       flex-direction: column;
@@ -455,11 +464,12 @@
 
     .story-section {
       background-color: #f7f9fa;
-      padding: 140px 50px;
-      min-height: 100vh;
+      padding: 10rem 3rem;
+      height: 80vh;
+      /* min-height: calc(var(--vh, 1vh) * 100); */
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
     }
 
     .story-container {
@@ -475,6 +485,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
+      min-width: 0; /* Grid 아이템 기본값(min-width:auto)으로 인한 트랙 확장 방지 */
     }
 
     .story-category-title {
@@ -513,6 +524,7 @@
 
     .story-right {
       position: relative;
+      min-width: 0; /* Grid 아이템 기본값(min-width:auto)이 nowrap 텍스트 크기만큼 트랙을 밀어내는 것 방지 */
     }
 
     /* 높이 일괄 고정 (레이아웃 흔들림 방지) */
@@ -563,12 +575,12 @@
       white-space: nowrap;
     }
 
-    .story-tag.tag-notice {
+    .story-tag.tag-ahnues {
       background-color: #e8eaf0;
       color: #4a5061;
     }
 
-    .story-tag.tag-showcase {
+    .story-tag.tag-archive {
       background-color: #e9fad1;
       color: #658c1f;
     }
@@ -647,6 +659,7 @@
       font-weight: 500;
     }
 
+    /* ===== 커스텀 마우스 커서 및 터치 기기 대응 ===== */
     .cursor-dot,
     .cursor-ring {
       position: fixed;
@@ -689,6 +702,7 @@
       }
     }
 
+    /* 모바일(터치스크린) 환경에서는 커스텀 마우스 커서를 완벽 차단하여 렌더링 리소스와 비주얼 방해 최소화 */
     @media (pointer: coarse) {
       .cursor-dot,
       .cursor-ring {
@@ -765,7 +779,6 @@
       }
     }
 
-    /* ===== 모바일 미디어 쿼리 최적화 정의 ===== */
     @media (max-width: 768px) {
       /* 헤더를 정중앙 정렬하여 버튼 레이아웃 중심에 위치 */
       header {
@@ -803,6 +816,7 @@
         right: -100%;
         width: 100%;
         height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
         background-color: rgba(10, 12, 20, 0.98);
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
@@ -847,23 +861,22 @@
         margin-top: -35px; /* 중앙 정렬 편차 계산 정정 */
       }
       .letter-a {
-        left: calc(50% - 35vw - 40px); /* 좁은 모바일 화면에서도 잘림 없는 최적 안전 거리 확보 */
+        left: calc(50% - 35vw - 15px) /* 좁은 모바일 화면에서도 잘림 없는 최적 안전 거리 확보 */
       }
       .letter-e {
-        right: calc(50% - 35vw - 40px); /* 좁은 모바일 화면에서도 잘림 없는 최적 안전 거리 확보 */
+        right: calc(50% - 35vw - 15px); /* 좁은 모바일 화면에서도 잘림 없는 최적 안전 거리 확보 */
       }
       .logo-ahnue-full svg, .logo-ahnue-full img {
         width: 220px;
       }
       .center-line {
-        width: 40vw;
+        width: 30vw;
       }
       .intro-text-group p {
         font-size: 14px;
         padding: 0 15px;
       }
 
-      /* ===== 2. 서비스 카드가 모바일 환경에서도 모두 나오게 하는 정상화 코드 ===== */
       .services-section {
         height: auto !important;
         min-height: auto !important;
@@ -899,7 +912,8 @@
 
       /* ===== 3. 모바일에서 스토리 날짜/화살표 비노출 및 말줄임 처리 고도화 ===== */
       .story-section {
-        padding: 80px 24px;
+        height: 100%;
+        padding: 5rem 24px;
       }
       .story-list {
         min-height: 380px;      
@@ -924,17 +938,25 @@
       .story-item-title {
         font-size: 1rem;
         width: 100%;
-        max-width: 90%;
         display: block !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important; 
         box-sizing: border-box;
       }
-      
 
       /* 모바일에서는 우측 서브 항목 레이아웃 자체를 가려 공간 극대화 */
-      .story-item-right, .story-item-new, .story-item-date, .story-item-arrow {
+      .story-item-right {
         display: none !important;
+      }
+      
+      /* 모바일에서는 날짜(date) 완벽 미노출 */
+      .story-item-date {
+        display: none !important;
+      }
+
+      /* 모바일 스토리 리스트 아이템 내부 화살표 숨김 */
+      .story-item-arrow {
+        display: none !important; 
       }
     }
